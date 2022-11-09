@@ -19,16 +19,18 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
     "paths": {
       "@app/*": ["src/*"],
       "@shared/*": ["src/shared/*"],
       "@components/*": ["src/components/*"],
       "@test/*": ["test/*"]
-    }
+    },
+    "outDir": "dist"
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }
