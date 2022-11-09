@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '@app/domain/services/AuthService';
-import { AuthContext } from '@app/application/AuthContext';
+import { AuthContext, useAuth } from '@app/application/AuthContext';
 
 // @todo receive authservice as prop
 export const AuthProvider = ({
@@ -52,7 +52,7 @@ export const AuthProvider = ({
         authService,
         isAuthenticated,
         user,
-        isLoading: loading,
+        isLoading: () => loading,
         login,
         logout,
       }}

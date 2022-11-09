@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
+    "build": "tsc --build",
     "format": "prettier --write \"{src,test}/**/*.{ts, tsx, json}\"",
     "lint": "eslint \"{src,test}/**/*.{ts, tsx, json}\""
   },
