@@ -1,64 +1,80 @@
-// inpired by gardner/react-oauth2-pkce
-// add auth service class
-
-// add tokens contract
-// add provider response contract
-// add auth error response contract
-
-// add auto refresh based on the expires time, if enabled
-
 import { AuthServiceProps } from '@app/domain/contracts/AuthServiceProps';
 import PKCE from 'js-pkce';
-import ITokenResponse from 'js-pkce/dist/ITokenResponse';
-
-/**
- * @deprecated
- */
-export interface JWTIDToken {
-  given_name: string;
-  family_name: string;
-  name: string;
-  email: string;
-}
-/**
- * @deprecated
- */
-export interface TokenRequestBody {
-  clientId: string;
-  grantType: string;
-  redirectUri?: string;
-  refresh_token?: string;
-  clientSecret?: string;
-  code?: string;
-  codeVerifier?: string;
-}
 
 export class AuthService {
-  props: AuthServiceProps;
-  pkce: PKCE;
+  private pkce: PKCE;
 
   constructor(props: AuthServiceProps) {
-    this.props = props;
     this.pkce = new PKCE({
-      client_id: this.props.clientId,
-      redirect_uri: this.props.redirectUrl,
-      authorization_endpoint: this.props.authorizationUrl,
-      token_endpoint: this.props.accessTokenUrl,
-      requested_scopes: this.props.requestedScopes,
-      storage: this.props.storage,
+      client_id: props.clientId,
+      redirect_uri: props.redirectUrl,
+      authorization_endpoint: props.authorizationUrl,
+      token_endpoint: props.accessTokenUrl,
+      requested_scopes: props.requestedScopes,
+      storage: props.storage,
     });
+  }
 
-    this.pkce
-      .exchangeForAccessToken(window.location.href)
-      .then((r: ITokenResponse) => {
-        console.log('exchange response', r);
-        // @todo updates current url?
-      })
-      .catch((e) => {
-        // @todo clear local storage?
-        console.warn({ e });
-      });
+  /**
+   * Returns true if the user is authenticated, false otherwise.
+   */
+  public isAuthenticated(): boolean {
+    // Check if the user's access token is set and has not expired
+    //return !!this.pkce.getAccessToken() && !this.pkce.isTokenExpired();
+    return true;
+  }
 
-    // @todo add auto refresh
+  /**
+   * Starts the authentication flow by redirecting the user to the authorization endpoint.
+   */
+  public login(): void {
+    // Redirect the user to the authorization endpoint
+    window.location.assign(this.getAuthorizeUrl());
+  }
+
+  public getAuthorizeUrl(): string {
+    return this.pkce.authorizeUrl();
+  }
+
+  /**
+   * Logs the user out of the application.
+   */
+  public logout(): void {
+    // Clear the user's access token
+    //this.pkce.clearAccessToken();
+    // Redirect the user to the home page
+    window.location.assign('/');
+  }
+
+  /**
+   * Completes the authentication flow by exchanging the authorization code for an access token.
+   */
+  public completeAuth(): Promise<void> {
+    return new Promise((resolve) => {
+      // Do nothing and resolve the promise immediately
+      resolve();
+    });
+    //this.pkce.completeAuth();
+  }
+
+  /**
+   * Gets the user's access token.
+   */
+  /*public getAccessToken(): string | undefined {
+    return this.pkce.getAccessToken();
+  }*/
+
+  /**
+   * Gets the user's id token.
+   */
+  /*public getIdToken(): string | undefined {
+    return this.pkce.getIdToken();
+  }*/
+
+  /**
+   * Returns the PKCE object.
+   */
+  public getPKCE(): PKCE {
+    return this.pkce;
   }
 }
