@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
     "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "ScriptHost", "ES2016.Array.Include"
     ],
-    "baseUrl": "./",
+    "jsx": "react-jsx",
     "sourceMap": true,
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -20,14 +23,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react-jsx",
+    "baseUrl": "./",
     "paths": {
       "@app/*": ["src/*"],
       "@shared/*": ["src/shared/*"],
       "@components/*": ["src/components/*"],
       "@test/*": ["test/*"]
     },
-    "outDir": "dist"
   },
   "include": [
     "src"
