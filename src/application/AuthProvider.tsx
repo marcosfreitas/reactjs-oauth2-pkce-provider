@@ -1,8 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { AuthService } from '@app/domain/services/AuthService';
-import { AuthContext } from '@app/application/AuthContext';
-import { UserContext } from './UserContext';
+import { store } from '@shared/store';
+import { Provider } from 'react-redux';
 
 interface AuthProviderProps {
   authService: AuthService;
@@ -14,13 +13,9 @@ interface AuthProviderProps {
  * methods to the context of its children components.
  */
 const AuthProvider = ({ authService, children }: AuthProviderProps) => {
-  const context = useContext(UserContext);
+  console.log(authService);
 
-  return (
-    <AuthContext.Provider value={{ authService }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 export { AuthProvider };

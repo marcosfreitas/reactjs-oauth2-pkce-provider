@@ -33,6 +33,6 @@
   },
   "include": [
     "src"
-  ],
+, "../my-social-link/web-app/www/src/app/hooks copy.ts"  ],
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }
