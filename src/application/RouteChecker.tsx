@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from 'react';
+import { useContext } from 'react';
 import { redirect, Route, Routes } from 'react-router-dom';
 
 import { AuthContextInterface } from '@app/domain/contracts/AuthContextInterface';

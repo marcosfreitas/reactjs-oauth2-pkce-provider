@@ -1,20 +1,21 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { AuthService } from '@app/domain/services/AuthService';
 import { AuthContext } from '@app/application/AuthContext';
+import { UserContext } from './UserContext';
 
 interface AuthProviderProps {
   authService: AuthService;
-  children: ReactElement;
+  children: ReactNode;
 }
 
 /**
  * Authentication Context Provider. Provides the authentication state and
  * methods to the context of its children components.
  */
-const AuthProvider: React.FC<AuthProviderProps> = ({
-  authService,
-  children,
-}) => {
+const AuthProvider = ({ authService, children }: AuthProviderProps) => {
+  const context = useContext(UserContext);
+
   return (
     <AuthContext.Provider value={{ authService }}>
       {children}

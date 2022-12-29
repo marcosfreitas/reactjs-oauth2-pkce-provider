@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 export interface RouteCheckerProps {
-  children: ReactElement;
+  children: ReactNode;
   errorCallback: () => any;
   loadingCallback: () => any;
 }
